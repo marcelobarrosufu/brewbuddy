@@ -1,0 +1,12 @@
+#n
+#t__HAL_RCC_SYSCFG_CLK_ENABLE();
+#n
+#t/* System interrupt init*/
+#t/* SVC_IRQn interrupt configuration */
+#tNVIC_SetPriority(SVC_IRQn, 0);
+#t/* PendSV_IRQn interrupt configuration */
+#tNVIC_SetPriority(PendSV_IRQn, 3);
+#t/* SysTick_IRQn interrupt configuration */
+#tNVIC_SetPriority(SysTick_IRQn, 0);
+#n
+#n

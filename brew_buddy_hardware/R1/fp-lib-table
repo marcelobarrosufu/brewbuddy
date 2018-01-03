@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name mods)(type KiCad)(uri /home/marcelo/Desktop/dados/bitbucket/beer_buddy_workspace/beer_buddy_hardware/mods.pretty)(options "")(descr ""))
+)

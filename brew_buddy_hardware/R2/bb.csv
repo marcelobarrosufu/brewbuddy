@@ -1,0 +1,55 @@
+Source,/home/marcelo/Desktop/dados/bitbucket/beer_buddy_workspace/brew_buddy_hardware/R2/bb.sch
+Kicad Rev,Eeschema 4.0.2+dfsg1-stable
+Generated Date,Sex 29 Dez 2017 09:19:51 -02
+
+Title,Beer Buddy
+Company,Not Set
+Revision,V1
+Date Issue,2017-10-16
+Comment,All rights reserved
+Comment,marcelobarrosalmeida@gmail.com
+Comment,Marcelo Barros de Almeida
+
+Reference,Value,Library,Library Ref
+U2,STM32F030F4,bb,STM32F030F4
+SW3,SW_SPST,switches,SW_SPST
+SW4,SW_SPST,switches,SW_SPST
+SW5,SW_SPST,switches,SW_SPST
+SW2,SW_SPST,switches,SW_SPST
+U1,OLED-DISPLAY-I2C-128X64,bb,OLED-DISPLAY-I2C-128X64
+BT1,CR2032,device,Battery_Cell
+J4,Sensor,conn,Conn_01x03
+C2,100nF,device,C_Small
+C3,4.7uF,device,C_Small
+C5,1uF,device,C_Small
+R6,2K,device,R
+R2,2K,device,R
+R1,2K,device,R
+C6,1uF,device,C_Small
+R3,10K,device,R
+R5,3K,device,R
+C4,10nF,device,C_Small
+D1,LED,device,LED
+R4,330R,device,R
+J1,JTAG,conn,Conn_01x05
+C1,100nF,device,C_Small
+J5,PA7,conn,Conn_01x01
+J6,PA6,conn,Conn_01x01
+J7,PA5,conn,Conn_01x01
+J2,PF1,conn,Conn_01x01
+U3,ADR5041BRTZ,bb,ADR5041BRTZ
+Q1,PMV48XP (PMOS_GSD),device,Q_PMOS_GSD
+Q2,PMV65UNER (NMOS_GSD),device,Q_NMOS_GSD
+Q3,PMV65UNER (NMOS_GSD),device,Q_NMOS_GSD
+R10,100K,device,R
+R11,100K,device,R
+R13,1M,device,R
+R12,100K,device,R
+SW1,SW_SPST,switches,SW_SPST
+C7,470nF,device,C_Small
+J8,Drill,conn,Conn_01x01
+J9,Drill,conn,Conn_01x01
+J10,Drill,conn,Conn_01x01
+J11,Drill,conn,Conn_01x01
+R14,0R,device,R
+C8,100nF,device,C_Small
