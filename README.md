@@ -46,13 +46,29 @@ BrewBuddy firmware was built with low power requirements in mind, generating sev
 
  - The controller clock was reduced to 1MHz. Internal 8MHz clock (HSI) is used and PLL is disabled. 
  - I2C clock is only 100kHz (standard mode).
- - The main loop is only a _WFI (wake for interrupt) call, all code runs in interrupt mode:
-   - Systick (1ms) timer is used to coordenate the periodic events (leds, display updates, AD samplig and calibration). When some action is required, for instance a display update, it creates an event and sets SVD exception as pending. SVD is configured as a low priority exception, running only when other high priority interrupts are idle. This way we can ensure a better temporization for BrewBuddy.
+ - The main loop (see `main.c`) is only a _WFI (wake for interrupt) call, all code runs in interrupt mode:
+   - Systick (1ms) timer is used to coordenate the periodic events (leds, display updates, ADC samplig and calibration). When some action is required, for instance a display update, it creates an event and sets SVD exception as pending. SVD is configured as a low priority exception, running only when other high priority interrupts are idle. This way we can ensure a better temporization for BrewBuddy.
   - Led modes were implemented as the amount of systick ticks for ON and OFF states. Using this strategy, the led processing is very light, taking few CPU time and energy.
+  - Floating point is not used (less power and less flash requirements).
   
 Some firmware notes:
 
-  - As the battery voltage level is always falling I decided to calibrate the AD periodically. DMA was not used to sampling the AD values due the high cost in terms of flash usage. STM32 HAL takes some kBs of flash for DMA and a baremetal usage of DMA is required if we want to keep the flash usage low as possible. I need more time for this implementation. Or I need to use a microcontroller with bigger flash.
+  - As the battery voltage level is always falling I decided to calibrate the ADC periodically. DMA was not used to sampling the ADC values due the high cost in terms of flash usage. STM32 HAL takes some kBs of flash for DMA and a baremetal usage of DMA is required if we want to keep the flash usage low as possible. I need more time for this implementation. Or I need to use a microcontroller with bigger flash.
+  - `bb_scr.c` is the main file for OLED screens. OLED screens are a machine state, in fact. Each screen is represented by a function (state) with the prototype `bb_scr_list_t bb_screen_function(bool first_time, bb_key_event_t *key)`, where:
+    - `first_time`: it is used to indicate when we have a new screen to be presented or the same screen. Static text may be drawn in display using this flag, decreasing the amount of elements that need to be updated at each screen refresh.
+    - `key`: if a key was pressed the information is here.
+    - Remember: screens are implemented as a machine state (function based). So, you must return the next state when leaving the screen function. The list of states is given by the enumeration `bb_scr_list_t`. To include a new state, you must edit the macro `XMACRO_SCR_LIST`, adding a new state ID and a new function name, like `X(BB_SCR_NEW_OP_ID, bb_scr_new_op_boil)`. After, create a function for `bb_scr_new_op_boil` and implement the screen and your state changes based on the screen ID and keys pressed.
+  - Step control is implemented in `ctrl.c`. Again, it is a machine state called at each 1s (see `ctrl_sm_run_1s()`). Given a proper initialization, steps can be followed by the states implemented in `ctrl.c`. 
+  - All LMT86 handling was implemented in `lmt86.c`. Given the current temperature value (in ADC steps) and the amount of steps for a 2.5V reference, the real temperature (in degrees) is calculate (see `lmt86_conv_temp_1d()`). As we do not use floating point, conversion is based on a mV x degrees table (provided by datasheet). A simple interpolation is performed when the current value is not in the table. The temperature value is multiplied by ten for a minimum precision in integer operations.
+  - If you want to change fonts, check the file `ssd1306_fonts.c`. We are using a small 7x5 font due to flash limits but it is possible to create bigger fonts and better presentation. The SSD1306 driver is minimal as well, a stripped/modified version of original driver provided by stm32f4-discovery.net. 
+  - In `persist.c` you can find the default value for persistence and the routines to save / restore values from flash. A CRC is provided to check data integrity. The last flash sector (1kB) is used for data storage.
+  
+  At this moment, we do not have flash for anything else, even compiling for release and using size optimization:
+
+| Flash | RAM (data+bss) |
+| --- | --- |
+| 15092 of 15360 bytes (98.3%) | 1200 of 4096 bytes (29.3%) |
+
 
 # CAD Files
 
