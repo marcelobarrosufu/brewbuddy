@@ -91,7 +91,7 @@ int32_t bb_temp_get1d(void)
 	else
 	{
 		uint32_t vref = (2500*4095)/bb_2v5_ref;
-		return lmt86_conv_temp_1d(bb_temp_raw, 4096, vref);
+		return lmt86_conv_temp_1d(bb_temp_raw, 4095, vref);
 	}
 }
 
@@ -328,7 +328,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* h)
 				bb_temp_raw = tmp_sum/NUM_ADC_SAMPLES;
 	#else
 				tmp_sum = tmp_sum/NUM_ADC_SAMPLES;
-				bb_temp_raw = (bb_temp_raw*90 + tmp_sum*10)/100;
+				bb_temp_raw = (bb_temp_raw*75 + tmp_sum*25)/100;
 	#endif
 				num_samples = 0;
 				tmp_sum = 0;
