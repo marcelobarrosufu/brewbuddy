@@ -6,6 +6,7 @@
 */
 
 #include <stdint.h>
+#include "bb_locale.h"
 #include "lmt86.h"
 
 typedef struct lmt86_table_row_s

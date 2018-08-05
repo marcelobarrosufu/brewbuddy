@@ -69,6 +69,14 @@ Some firmware notes:
 | --- | --- |
 | 15092 of 15360 bytes (98.3%) | 1200 of 4096 bytes (29.3%) |
 
+# Adding localization support 
+
+Some steps to add support for a new language:
+
+  - Create a copy of `bb_locale_ENUS.h` and modify the suffix using a combination of [ISO-639 Language Codes and ISO ISO-3166 Country Codes](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html). For instance, you can use `bb_locale_ESCL.h` for Spanish and Chile.
+  - Change the define `BB_DEFAULT_LOCALE` inside `bb_locale.h` (use your localization file name).
+  - Translate the file contents. 
+  - In special, for units, change `BB_TEMP_UNIT_IS_CELSIUS` and `BB_TEMP_UNIT_LABEL` for your corresponding temperature unit (0 and 'F' for Fahrenheit and 1 and 'C' for Celsius).
 
 # CAD Files
 

@@ -9,8 +9,8 @@
 #define BB_LOCALE_PTBR_H_
 
 #define BB_VERSION                  "1.0"
-#define BB_TEMP_UNIT_IS_CELSIUS     1
-#define BB_TEMP_UNIT_LABEL          "C"
+#define BB_TEMP_UNIT_IS_CELSIUS     0
+#define BB_TEMP_UNIT_LABEL          "F"
 #define BB_SPLASH1                  "BREW"
 #define BB_SPLASH2                  "BUDDY"
 #define BB_SIMUL                    "SIMULATION"
